@@ -206,6 +206,7 @@ body, canvas {
 @media (max-width: 768px) {
     .game-container {
         padding: 5px;
+        padding-bottom: 120px; /* Make room for mobile controls */
     }
     
     #screen {
@@ -215,31 +216,29 @@ body, canvas {
     }
     
     .game-note {
-        position: relative;
-        right: auto;
-        margin: 10px auto;
-        min-width: 100px;
-        font-size: 100%;
+        position: fixed;
+        right: 5px;
+        min-width: 80px;
+        font-size: 90%;
+        z-index: 90;
     }
     
     #score-container {
-        top: auto;
-        margin-top: 10px;
+        top: 10px;
     }
     
     #life-container {
-        top: auto;
-        margin-top: 10px;
+        top: 80px;
     }
     
     #level-container {
-        top: auto;
-        margin-top: 10px;
+        top: 150px;
     }
     
     .mobile-controls {
         display: flex;
         flex-direction: column;
+        bottom: 10px;
     }
     
     .control-btn {
@@ -257,6 +256,7 @@ body, canvas {
     #inst {
         font-size: 14px;
         padding: 10px;
+        margin-bottom: 10px;
     }
     
     .hebrew-text {
@@ -271,6 +271,24 @@ body, canvas {
 @media (max-width: 480px) {
     #screen {
         max-width: 350px;
+    }
+    
+    .game-note {
+        right: 2px;
+        min-width: 70px;
+        font-size: 80%;
+    }
+    
+    #score-container {
+        top: 5px;
+    }
+    
+    #life-container {
+        top: 65px;
+    }
+    
+    #level-container {
+        top: 125px;
     }
     
     .control-btn {
