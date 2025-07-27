@@ -7,7 +7,16 @@ body, canvas {
     border: 0;
     background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
     font-family: 'Orbitron', monospace;
-    overflow: hidden;
+    overflow-x: hidden;
+}
+
+.game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 10px;
 }
 
 #screen {
@@ -17,6 +26,8 @@ body, canvas {
     border: 3px solid #00ffff;
     box-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
     border-radius: 10px;
+    max-width: 100%;
+    height: auto;
 }
 
 #inst, #status {
@@ -137,4 +148,144 @@ body, canvas {
 @keyframes glow {
     from { text-shadow: 0 0 20px rgba(0, 255, 255, 0.8); }
     to { text-shadow: 0 0 30px rgba(0, 255, 255, 1), 0 0 40px rgba(0, 255, 255, 0.8); }
+}
+
+/* Mobile Controls */
+.mobile-controls {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    gap: 10px;
+}
+
+.control-row {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+.control-btn {
+    width: 60px;
+    height: 60px;
+    border: 3px solid #00ffff;
+    background: linear-gradient(45deg, rgba(0, 255, 255, 0.2), rgba(0, 128, 255, 0.2));
+    color: #00ffff;
+    font-family: 'Orbitron', monospace;
+    font-size: 18px;
+    font-weight: 700;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.control-btn:active,
+.control-btn:focus {
+    background: linear-gradient(45deg, rgba(0, 255, 255, 0.4), rgba(0, 128, 255, 0.4));
+    box-shadow: 0 0 25px rgba(0, 255, 255, 0.6);
+    transform: scale(0.95);
+}
+
+.control-btn.shoot {
+    width: 80px;
+    font-size: 14px;
+}
+
+.control-btn.restart {
+    width: 80px;
+    font-size: 12px;
+}
+
+/* Mobile Responsive Design */
+@media (max-width: 768px) {
+    .game-container {
+        padding: 5px;
+    }
+    
+    #screen {
+        width: 100%;
+        max-width: 400px;
+        height: auto;
+    }
+    
+    .game-note {
+        position: relative;
+        right: auto;
+        margin: 10px auto;
+        min-width: 100px;
+        font-size: 100%;
+    }
+    
+    #score-container {
+        top: auto;
+        margin-top: 10px;
+    }
+    
+    #life-container {
+        top: auto;
+        margin-top: 10px;
+    }
+    
+    #level-container {
+        top: auto;
+        margin-top: 10px;
+    }
+    
+    .mobile-controls {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .control-btn {
+        width: 50px;
+        height: 50px;
+        font-size: 16px;
+    }
+    
+    .control-btn.shoot,
+    .control-btn.restart {
+        width: 70px;
+        font-size: 12px;
+    }
+    
+    #inst {
+        font-size: 14px;
+        padding: 10px;
+    }
+    
+    .hebrew-text {
+        font-size: 2.5em;
+    }
+    
+    .subtitle {
+        font-size: 1.2em;
+    }
+}
+
+@media (max-width: 480px) {
+    #screen {
+        max-width: 350px;
+    }
+    
+    .control-btn {
+        width: 45px;
+        height: 45px;
+        font-size: 14px;
+    }
+    
+    .control-btn.shoot,
+    .control-btn.restart {
+        width: 65px;
+        font-size: 11px;
+    }
+    
+    .hebrew-text {
+        font-size: 2em;
+    }
 }
