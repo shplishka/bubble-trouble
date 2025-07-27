@@ -11,10 +11,13 @@ var server = new WebpackDevServer(webpack(config), {
     historyApiFallback: true
 });
 
-server.listen(3000, 'localhost', function(err, result) {
+const port = process.env.PORT || 3000;
+const host = process.env.NODE_ENV === 'production' ? '0.0.0.0' : 'localhost';
+
+server.listen(port, host, function(err, result) {
     if (err) {
         return console.log(err);
     } else {
-        console.log("Listening at http://localhost:3000/");
+        console.log(`Listening at http://${host}:${port}/`);
     }
 });
