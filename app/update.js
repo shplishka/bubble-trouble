@@ -170,7 +170,7 @@ const updateGame = (state, standardBubbles, scores, keys, Html, dt) => {
         bubbles: tuple.get("bubbles"),
         player: newPlayer,
         arrows: tuple.get("arrows"),
-        isGameOver: isPlayerHit(tuple.get("bubbles"), newPlayer) || state.isGameOver,
+        isGameOver: isPlayerHit(tuple.get("bubbles"), newPlayer) || state.get("isGameOver"),
         score: tuple.get("score")
     });
     return isGameOver(state, newGameState);

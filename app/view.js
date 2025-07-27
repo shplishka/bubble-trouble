@@ -4,6 +4,9 @@ import { interrogateKeyState, keys } from "./keystate";
 import { List, Map } from "immutable";
 import { updateGame } from "./update";
 import { createModel, standardBubbles, scores } from "./model";
+// Load the image directly from the public directory
+const benpoImage = new Image();
+benpoImage.src = "/benpo.png";
 
 interrogateKeyState(keys);
 
@@ -12,8 +15,20 @@ window.addEventListener("load", () => {
     const screen = Html.canvas.getContext("2d");
 
     const drawPlayer = player => {
-        screen.fillStyle = player.get("color"); // eslint-disable-line fp/no-mutation
-        screen.fillRect(player.get("x"), Html.canvas.height - player.get("h"), player.get("w"), player.get("h"));
+        // Draw the benpo image instead of a blue rectangle
+        if (benpoImage.complete) {
+            screen.drawImage(
+                benpoImage, 
+                player.get("x"), 
+                Html.canvas.height - player.get("h"), 
+                player.get("w"), 
+                player.get("h")
+            );
+        } else {
+            // Fallback to blue rectangle if image not loaded yet
+            screen.fillStyle = player.get("color");
+            screen.fillRect(player.get("x"), Html.canvas.height - player.get("h"), player.get("w"), player.get("h"));
+        }
     };
 
     const drawBubble = bubble => {
@@ -37,24 +52,46 @@ window.addEventListener("load", () => {
         scoreElem.innerHTML = score; // eslint-disable-line fp/no-mutation
     };
 
+    const showGameOver = (isGameOver) => {
+        const banner = document.getElementById("game-over-banner");
+        if (isGameOver) {
+            banner.style.display = "flex";
+        } else {
+            banner.style.display = "none";
+        }
+    };
+
     const draw = (gameState, Html) => {
         screen.clearRect(0, 0, Html.canvas.width, Html.canvas.height);
         gameState.get("bubbles").map(drawBubble);
         gameState.get("arrows").map(drawArrow);
         drawPlayer(gameState.get("player"));
         showScore(gameState.get("score"));
+        showGameOver(gameState.get("isGameOver"));
     };
+
+    let currentGameState = createModel(Html.canvas);
+    let lastTime = 0;
 
     const runGameRenderingCycle = (gameState, standardBubbles, scores, keys, lastTime, Html) => {
         const time = new Date().getTime();
         const deltaInTime = time - (lastTime || time);
-        draw(gameState, Html);
+        
+        // Check for restart
+        if (keys.state.get("isRKeyPressed")) {
+            currentGameState = createModel(Html.canvas);
+            lastTime = time;
+        }
+        
+        currentGameState = updateGame(currentGameState, standardBubbles, scores, keys, Html, deltaInTime);
+        draw(currentGameState, Html);
+        
         requestAnimationFrame(
             () => runGameRenderingCycle(
-                updateGame(gameState, standardBubbles, scores, keys, Html, deltaInTime), standardBubbles, scores, keys, time, Html
+                currentGameState, standardBubbles, scores, keys, time, Html
             )
         );
     };
 
-    runGameRenderingCycle(createModel(Html.canvas), standardBubbles, scores, keys, 0, Html);
+    runGameRenderingCycle(currentGameState, standardBubbles, scores, keys, lastTime, Html);
 });
