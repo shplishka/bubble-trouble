@@ -4,13 +4,12 @@ import { interrogateKeyState, keys } from "./keystate";
 import { List, Map } from "immutable";
 import { updateGame } from "./update";
 import { createModel, standardBubbles, scores } from "./model";
-// Load the image directly from the public directory
-const benpoImage = new Image();
-benpoImage.src = "/benpo.png";
-
 interrogateKeyState(keys);
 
 window.addEventListener("load", () => {
+    // Load the image directly from the public directory
+    const benpoImage = new Image();
+    benpoImage.src = "/benpo.png";
 
     const screen = Html.canvas.getContext("2d");
 
