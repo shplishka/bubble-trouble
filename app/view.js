@@ -12,20 +12,25 @@ window.addEventListener("load", () => {
     benpoImage.src = "/benpo.png";
 
     // Mobile detection and touch controls
-    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 
+                     ('ontouchstart' in window) || 
+                     (window.innerWidth <= 768);
     
-    if (isMobile) {
-        // Show mobile controls
-        const mobileControls = document.querySelector('.mobile-controls');
-        if (mobileControls) {
-            mobileControls.style.display = 'flex';
-        }
+    // Always show mobile controls on small screens or touch devices
+    const mobileControls = document.querySelector('.mobile-controls');
+    if (mobileControls && (isMobile || window.innerWidth <= 768)) {
+        mobileControls.style.display = 'flex';
+        mobileControls.style.flexDirection = 'column';
+        mobileControls.style.alignItems = 'center';
+    }
         
-        // Touch controls
-        const leftBtn = document.getElementById('left-btn');
-        const rightBtn = document.getElementById('right-btn');
-        const shootBtn = document.getElementById('shoot-btn');
-        const restartBtn = document.getElementById('restart-btn');
+    // Touch controls (setup regardless of mobile detection)
+    const leftBtn = document.getElementById('left-btn');
+    const rightBtn = document.getElementById('right-btn');
+    const shootBtn = document.getElementById('shoot-btn');
+    const restartBtn = document.getElementById('restart-btn');
+    
+    if (leftBtn && rightBtn && shootBtn && restartBtn) {
         
         // Left button
         leftBtn.addEventListener('touchstart', (e) => {

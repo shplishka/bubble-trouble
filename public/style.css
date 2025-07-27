@@ -162,6 +162,15 @@ body, canvas {
     gap: 10px;
 }
 
+/* Show mobile controls on touch devices and small screens */
+@media (max-width: 768px), (hover: none) and (pointer: coarse) {
+    .mobile-controls {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
 .control-row {
     display: flex;
     gap: 15px;
