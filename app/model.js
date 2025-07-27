@@ -9,9 +9,9 @@ const createModel = (canvas) => {
         bubbles: List.of(createBubble(midX, midY, 100, 200, "red"), createBubble(midX, midY, -100, 200, "green")),
         player: Map({
             x: midX,
-            w: 60,
-            h: 80,
-            y: canvas.height - 80,
+            w: 45,
+            h: 60,
+            y: canvas.height - 60,
             color: "blue"
         }),
         arrows: List.of(),
