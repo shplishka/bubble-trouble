@@ -6,7 +6,7 @@ const createModel = (canvas) => {
     const midX = canvas.width/2;
     const midY = canvas.height/2;
     return Map({
-        bubbles: List.of(createBubble(midX, midY, 100, 200, "red"), createBubble(midX, midY, -100, 200, "green")),
+        bubbles: List.of(createBubble(midX, 100, 100, 150, "red"), createBubble(midX, 100, -100, 150, "green")),
         player: Map({
             x: midX,
             w: 45,
