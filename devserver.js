@@ -8,7 +8,8 @@ var server = new WebpackDevServer(webpack(config), {
     publicPath: config.output.publicPath,
     hot: true,
     contentBase: path.resolve(__dirname, "public"),
-    historyApiFallback: true
+    historyApiFallback: true,
+    disableHostCheck: true
 });
 
 const port = process.env.PORT || 3000;
